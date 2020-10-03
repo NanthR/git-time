@@ -5,13 +5,14 @@ on: ['push', 'pull_request']
 jobs:
         ci:
                 runs-on: ubuntu-latest
-        name: CI
 
-        steps:
-                - uses: action/checkout@v2
-                - name: cmake
-                  run: mkdir build && cd build && cmake ..
-                - name: build
-                  run: cmake --build build
-                - name: test
-                  run: cd build && ctest
+                steps:
+                        - uses: actions/checkout@v2 
+                        - name: libgit2
+                          run: sudo apt-get install -y libgit2-dev
+                        - name: cmake
+                          run: mkdir build && cd build && cmake ..
+                        - name: build
+                          run: cmake --build build 
+                        - name: test
+                          run: cd build && ctest

@@ -3,8 +3,23 @@
 #include<unistd.h>
 #include<time.h>
 #include<vector>
+#include<regex>
 
 using namespace std;
+
+int format_check(string date) {
+	//Regex string for days
+	string days = "(Mon|Tue|Wed|Thu|Fri|Sat|Sun)";
+	
+	//Regex string for months
+	string months = "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)";
+
+	regex format ("^"+days+" "+months+" "+"([0-2]?[0-9]|3[0-1]) ([0-1][0-9]|2[0-4]):([0-5]?[0-9]|60):([0-5]?[0-9]|60) [0-9]+ [-/+][0-9]{4}$");
+	if(regex_match(date.begin(), date.end(), format) == 0) {
+			return 0;
+		}
+	return 1;
+}
 
 string check() {
 	char cwd[50];
@@ -16,7 +31,7 @@ string check() {
 	//Checks if the provided directory is a git repo
 	int a = git_repository_discover(&root, cwd, 1, NULL);
 	if(a < 0) {
-		const git_error *e = git_error_last();
+		const git_error *e = giterr_last();
 		cout << e->message << "\n";
 		exit(a);
 	}
@@ -51,3 +66,4 @@ vector<string> show_commits(const char* GIT_DIR) {
 	git_libgit2_shutdown();
 	return commits;
 }
+
