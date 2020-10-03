@@ -1,0 +1,17 @@
+name: CI
+
+on: ['push', 'pull_request']
+
+jobs:
+        ci:
+                runs-on: ubuntu-latest
+        name: CI
+
+        steps:
+                - uses: action/checkout@v2
+                - name: cmake
+                  run: mkdir build && cd build && cmake ..
+                - name: build
+                  run: cmake --build build
+                - name: test
+                  run: cd build && ctest
