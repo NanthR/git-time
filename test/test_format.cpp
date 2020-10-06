@@ -19,9 +19,9 @@ int format_check(string date) {
 
 
 TEST_CASE("Checking if datetime matches the required format", "[datetime]") {
-	REQUIRE(format_check("Tue Jan 28 23:53:22 2005 +0530") == 1);
-	REQUIRE(format_check("Hello") == 0);
-	REQUIRE(format_check("Tue Jan 45 23:53:22 2007 -0800") == 0);
-	REQUIRE(format_check("") == 0);
-	REQUIRE(format_check("Thu Nov 21 23:59:59 2122 +0700") == 1);
+	REQUIRE(format_check("Tue Jan 28 23:53:22 2005 +0530") == true);
+	REQUIRE(format_check("Hello") == false);
+	REQUIRE(format_check("Tue Jan 45 23:53:22 2007 -0800") == false);
+	REQUIRE(format_check("") == false);
+	REQUIRE(format_check("Thu Nov 21 23:59:59 2122 +0700") == true);
 }

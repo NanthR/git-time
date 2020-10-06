@@ -1,13 +1,12 @@
 #include<iostream>
 #include<git2.h>
 #include<unistd.h>
-#include<time.h>
 #include<vector>
 #include<regex>
 
 using namespace std;
 
-int format_check(string date) {
+bool format_check(string date) {
 	//Regex string for days
 	string days = "(Mon|Tue|Wed|Thu|Fri|Sat|Sun)";
 	
@@ -16,9 +15,18 @@ int format_check(string date) {
 
 	regex format ("^"+days+" "+months+" "+"([0-2]?[0-9]|3[0-1]) ([0-1][0-9]|2[0-4]):([0-5]?[0-9]|60):([0-5]?[0-9]|60) [0-9]+ [-/+][0-9]{4}$");
 	if(regex_match(date.begin(), date.end(), format) == 0) {
-			return 0;
+			return false;
 		}
-	return 1;
+	return true;
+}
+
+bool input_num(string n) {
+	//Regex string for input
+	regex format("^([0-9]+ )*[0-9]+$");
+	if(regex_match(n.begin(), n.end(), format) == 0) {
+		return false;
+	}
+	return true;
 }
 
 string check() {
@@ -33,7 +41,7 @@ string check() {
 	if(a < 0) {
 		const git_error *e = giterr_last();
 		cout << e->message << "\n";
-		exit(a);
+		return ""; 	
 	}
 	git_libgit2_shutdown();
 	//root => struct; ptr stores the directory  containing the repo
@@ -51,15 +59,12 @@ vector<string> show_commits(const char* GIT_DIR) {
 	git_revwalk_push_head(walker);
 	//OID refers to the unique name for each commit
 	git_oid oid;
-	int count = 1;
 	vector<string> commits;
 	while(!git_revwalk_next(&oid, walker)){
 		git_commit * commit = nullptr;
 		git_commit_lookup(&commit, repo, &oid);
 		commits.push_back(git_oid_tostr_s(&oid));
-		std::cout << count << " " << git_oid_tostr_s(&oid) << "\n";
 		git_commit_free(commit);
-		count++;
 	}
 	git_revwalk_free(walker);
 	git_repository_free(repo);
