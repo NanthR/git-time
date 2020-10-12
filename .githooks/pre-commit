@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mapfile -t cpp < <( git diff --cached --name-only | grep -E "*.cpp" )
+for i in "${cpp[@]}"; do
+	clang-format -i $i
+	git add $i
+done
+
+mapfile -t cmake < <( git diff --cached --name-only | grep CMakeLists.txt  )
+for i in "${cmake[@]}"; do
+	cmake-format -i $i
+	git add $i
+done
