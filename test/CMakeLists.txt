@@ -1,4 +1,4 @@
-ADD_EXECUTABLE(testing main.cpp test_format.cpp test_trim.cpp)
-TARGET_INCLUDE_DIRECTORIES(testing PUBLIC "${git-time_SOURCE_DIR}/include")
-TARGET_LINK_LIBRARIES(testing git2)
-ADD_TEST(NAME git-time COMMAND testing -o report.xml)
+add_executable(testing main.cpp test_format.cpp test_trim.cpp)
+target_include_directories(testing PUBLIC "${git-time_SOURCE_DIR}/include")
+target_link_libraries(testing git2)
+add_test(NAME git-time COMMAND testing -o report.xml)

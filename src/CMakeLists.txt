@@ -1,4 +1,4 @@
-ADD_EXECUTABLE(git-time main.cpp)
-TARGET_INCLUDE_DIRECTORIES(git-time PUBLIC "${git-time_SOURCE_DIR}/include")
-TARGET_LINK_LIBRARIES(git-time git2)
-INSTALL(TARGETS git-time DESTINATION bin)
+add_executable(git-time main.cpp)
+target_include_directories(git-time PUBLIC "${git-time_SOURCE_DIR}/include")
+target_link_libraries(git-time git2)
+install(TARGETS git-time DESTINATION bin)

@@ -4,16 +4,19 @@
 using namespace std;
 
 const vector<string> explode(const string& s, const char& c) {
-	string buff{""};
+	string buff;
 	vector<string> v;
 	
 	for(auto n:s)
 	{
-		if(n != c) buff+=n; else
-		if(n == c && buff != "") { v.push_back(buff); buff = ""; }
+		if(n != c) {
+			buff+=n;
+		}
+		if(n == c && !buff.empty()) { v.push_back(buff); buff = ""; }
 	}
-	if(buff != "") v.push_back(buff);
-	
+	if(!buff.empty()) {
+		v.push_back(buff);
+	}
 	return v;
 }
 
