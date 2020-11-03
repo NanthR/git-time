@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(git-time)
+set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -pedantic -std=c++11")
+project(git-time CXX)
 add_subdirectory(src)
 
 # Finds if git is present on the system
