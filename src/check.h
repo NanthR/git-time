@@ -3,6 +3,7 @@
 #include<unistd.h>
 #include<vector>
 #include<regex>
+#define CHECK_H
 
 #define DAYS "(Mon|Tue|Wed|Thu|Fri|Sat|Sun)"
 #define MONTHS "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"

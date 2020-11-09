@@ -1,4 +1,7 @@
+#ifndef HELPERS_H
 #include "helpers.h"
+#define HELPERS_H
+#endif
 
 const std::vector<std::string> explode(const std::string &s, const char &c) {
   std::string buff;

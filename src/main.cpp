@@ -1,5 +1,6 @@
 #include "CLI11.hpp"
 #include "check.h"
+#include "commit_create.h"
 #include "helpers.h"
 
 int main(int argc, char *argv[]) {
@@ -31,28 +32,7 @@ int main(int argc, char *argv[]) {
   // Checks if both commit and date are set and otherwise prompts the user for
   // input
   if (commit.empty() || date.empty()) {
-    std::cout << "Choose the required commit\n";
-    int count = 1;
-    for (auto i : commits) {
-      std::cout << count << " " << i << "\n";
-      count++;
-    }
-    std::string n;
-    getline(std::cin, n);
-    n = rtrim(n);
-    if (!input_num(n)) {
-      std::cout << "Invalid options\n";
-      return 1;
-    }
-    std::vector<std::string> options{explode(n, ' ')};
-    for (auto i : options) {
-      int j = stoi(i);
-      if (j > (int)commits.size()) {
-        std::cout << "Invalid arguements\n";
-        return 1;
-      }
-      hashes.push_back(commits[j - 1]);
-    }
+    hashes = get_commits(commits);
     flag = 1;
   } else {
     hashes.push_back(commit);
@@ -63,6 +43,7 @@ int main(int argc, char *argv[]) {
   }
   if (flag == 0) {
     for (auto i : commits) {
+      // Checks if commit hash provided belongs is valid
       if (commit == i) {
         flag = 1;
       }
@@ -75,16 +56,9 @@ int main(int argc, char *argv[]) {
   std::cout << "Set the new date. Format `Day Month Date Hour:Min:Sec Year "
                "TimeZone'\n";
   std::cout << "Example 'Tue Jan 28 23:53:22 2005 +0530'\n";
+
   std::vector<std::string> dates;
-  for (auto i : hashes) {
-    std::cout << "Date for " << i << "\n";
-    getline(std::cin, date);
-    date = rtrim(date);
-    while (!format_check(date)) {
-      std::cout << "Invalid date format\nTry again\n";
-    }
-    dates.push_back(date);
-  }
+  dates = get_dates(hashes.size());
   std::string command = create_commmand(hashes, dates);
   if (command.empty()) {
     return 1;

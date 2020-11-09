@@ -1,4 +1,6 @@
+#ifndef CHECK_H
 #include "check.h"
+#endif
 
 bool format_check(std::string date) {
   std::regex format("^" + std::string(DAYS) + " " + std::string(MONTHS) + " " +

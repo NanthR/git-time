@@ -1,5 +1,6 @@
 #include<regex>
 #include<iostream>
+#define HELPERS_H
 
 const std::vector<std::string> explode(const std::string& s, const char& c);
 std::string rtrim(std::string str);
