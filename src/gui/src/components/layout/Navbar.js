@@ -18,6 +18,7 @@ const Navbar = () => {
   return (
     <AppBar position="absolute" className={classes.root}>
       <Toolbar variant="dense">
+        <GitHubIcon fontSize="large" />
         <Button
           variant="contained"
           color="primary"
@@ -45,7 +46,6 @@ const Navbar = () => {
         >
           Support
         </Button>
-        <GitHubIcon fontSize="large" />
       </Toolbar>
     </AppBar>
   );
